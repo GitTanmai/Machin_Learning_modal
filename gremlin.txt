@@ -1,0 +1,147 @@
+CL0A2086.sunlifecorp.com
+Qazx@1234
+sudo su - neptune
+
+cd apache-tinkerpop-gremlin-console-3.4.1
+
+bin/gremlin.sh
+
+:remote connect tinkerpop.server conf/neptune-remote-hackathon.yaml
+
+:remote console
+
+
+
+723924249665
+slf_aws_data_science_data_scientist_329
+ca-central-1
+
+su userid - <>
+password - f%_A24yorhVz|]_>
+
+aws sagemaker start-notebook-instance --notebook-instance-name ya97-ignite8-small
+
+aws sagemaker create-presigned-notebook-instance-url --notebook-instance-name ya97-ignite8-small
+
+aws sagemaker stop-notebook-instance --notebook-instance-name ya97-ignite8-small
+
+
+curl -X POST \
+    -H 'Content-Type: application/json' \
+    https://slf-ca-mo-dms-nl-hackathon.cluster-cxj6p56ogonq.ca-central-1.neptune.amazonaws.com:8191/loader -d '
+    {
+      "source" : "s3://slf-ca-lab-workspace/PrW/ignite8/glue_benchmarking/data/source_date/zeke_data/test/edges.csv",
+      "format" : "csv",
+      "iamRoleArn" : "arn:aws:iam::723924249665:role/slf_aws_service_neptune_hackathon",
+      "region" : "ca-central-1",
+      "failOnError" : "FALSE",
+      "parallelism" : "MEDIUM",
+      "updateSingleCardinalityProperties" : "FALSE",
+      "queueRequest" : "TRUE"
+    }'
+
+curl -G 'https://slf-ca-mo-dms-nl-hackathon.cluster-cxj6p56ogonq.ca-central-1.neptune.amazonaws.com:8191/loader/70950326-02f8-419a-be02-a406fc763a3f'
+
+curl -X GET 'https://slf-ca-mo-dms-nl-hackathon.cluster-cxj6p56ogonq.ca-central-1.neptune.amazonaws.com:8191/loader/fd7a4588-8b7c-4440-a4f7-377914e42873?details=true&errors=true&page=1&errorsPerPage=3'
+
+	
+g.E().drop()
+	
+	g.E().hasLabel('oc_successor').drop()
+	g.V().hasLabel('oc_job_nm').drop()
+	oc_job_nm
+	
+	g.V().project("v","degree").by().by(bothE().count()).order().by(select("degree"), decr).limit(4)
+	
+g.V().has('name','marko').
+               outE().
+               project('from','edge','to').
+                 by(outV()).
+                 by(valueMap(true)).
+                 by(inV()).
+               union(select('edge').unfold(),
+                     project('from').by(select('from')).unfold(),
+                     project('to').by(select('to')).unfold()).fold()   
+
+g.V().group().by(outE().count())
+
+g.V().hasLabel('oc_job_nm').outE().as('e').inV().as('i').select('e','i').by(label).groupCount().by(select('e','i'))
+
+g.V().group().by(label).unfold().as('kv')
+
+g.V().filter(outE().count().is(gt(9)))
+
+g.V().hasLabel("oc_job_nm").outE().map {it.get().length()}
+
+g.V().project("v","degree").by().by(outE().count()).unfold().values("degree").fold()
+	
+g.V().hasLabel("oc_job_nm").group().by("OC_JOB_PLATFORM_NM")
+g.V().hasLabel("oc_job_nm").groupCount("OC_JOB_PLATFORM_NM").by("WINDOWS")
+g.V().project('OC_JOB_PLATFORM_NM')
+
+g.V().hasLabel("oc_job_nm").has("OC_JOB_PLATFORM_NM", "WINDOWS").group().by("OC_JOB_PLATFORM_NM")
+.by("userId") 
+g.V().where("OC_JOB_PLATFORM_NM", eq("WINDOWS"))
+
+g.V().hasLabel("oc_job_nm")..groupCount()
+
+g.V().hasLabel('oc_job_nm').groupCount().by('OC_JOB_SERVER_ID').order(local).by(values,Order.decr)
+
+g.V().hasLabel("oc_job_nm").groupCount().by(outE().count().is(eq(6)))
+
+g.V().hasLabel('oc_job_nm').where(outE().count())
+g.V().hasLabel('oc_job_nm').where(outE().count().is(eq(6)))
+OC_JOB_COLLECT_NM
+g.V().hasLabel("oc_job_nm").groupCount().by('OC_JOB_COLLECT_NM')
+
+g.V().hasLabel("oc_job_nm").groupCount().by(outE().count()).by(select(keys))
+
+gremlin> g.V().hasLabel("oc_job_nm").groupCount().by(outE().count()).unfold().select(keys).max()
+==>6
+
+g.V().hasLabel("oc_job_nm").groupCount().by(outE().count()).unfold().select(keys).max()
+
+g.V().hasLabel("oc_job_nm").groupCount().by(outE().count()).unfold().select(value)
+
+g.V().hasLabel('oc_job_nm').where(outE().count().is(eq(1)))
+
+g.V().hasLabel("oc_job_nm").groupCount().by(outE().count())
+g.V().hasLabel('oc_job_nm').where(outE().count().is(eq(6))).fold()
+g.V().hasLabel("oc_job_nm").groupCount().by(inE().count()).unfold().select(keys).max()
+
+g.V().hasLabel('oc_job_nm').where(inE().count().is(eq(6))).fold()
+
+g.V().hasLabel("oc_job_nm").has("OC_JOB_COLLECT_NM", "APPL")
+
+g.V().hasLabel("oc_job_nm").groupCount().by("OC_JOB_COLLECT_NM")
+
+g.V().hasLabel("oc_job_nm").group().by("OC_JOB_COLLECT_NM".count())
+
+6. Which collect have most jobs
+	g.V().hasLabel("oc_job_nm").groupCount().by('OC_JOB_COLLECT_NM').unfold().select(keys).max()
+	
+	g.V().hasLabel('oc_job_nm').has('OC_JOB_COLLECT_NM','APPL').fold()
+	
+g.V().hasLabel('oc_job_nm').group().by('OC_JOB_COLLECT_NM').unfold().select(keys).max()
+
+g.V().hasLabel('oc_job_nm').group().by('OC_JOB_COLLECT_NM').by(count()).unfold().where(select(values).is(eq(6))).max()
+
+g.V().hasLabel('oc_job_nm').where(outE().count().is(eq(6))).fold()
+
+
+g.V().hasLabel('oc_job_nm').group().by('OC_JOB_COLLECT_NM').by(count()).unfold().where(select(values).is(eq(146)))
+g.V().hasLabel('oc_job_nm').group().by('OC_JOB_COLLECT_NM').by(count()).unfold().select(values).max()
+g.V().hasLabel('oc_job_nm').group().by('OC_JOB_COLLECT_NM').by(count()).unfold().where(select(values).is(eq(g.V().hasLabel('oc_job_nm').group().by('OC_JOB_COLLECT_NM').by(count()).unfold().select(values).max())))
+
+g.V().hasLabel('oc_job_nm').group().by('OC_JOB_COLLECT_NM').by(count()).unfold()
+g.V().has('person','name', 'marko').
+           project('a', 'b').
+             by().
+             by(__.as('x').V().hasLabel('person').where(eq('x')).by('name').count())
+			 
+g.V().hasLabel('oc_job_nm').group().by('OC_JOB_COLLECT_NM').by(count()).unfold().where(select(values).is(eq(__.as('x').V().hasLabel('oc_job_nm').group().by('OC_JOB_COLLECT_NM').by(count()).unfold().select(values).max())))
+
+g.V().order().by(g.V().hasLabel("oc_job_nm").groupCount().by('OC_JOB_SERVER_ID'))
+
+
+g.V().hasLabel("oc_job_nm").has('OC_JOB_SERVER_ID','*LOCAL').group().by('OC_JOB_SCHED_START_TM').by(count()).unfold().order().by(select(values),decr).limit(5)
